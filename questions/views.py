@@ -34,19 +34,13 @@ def all_questions_view(request, url):
 
         }
 
-<<<<<<< HEAD
+
     elif url == 'votes':
 
         posts=Post.objects.all().order_by("-upvotes")
-    
         posts = Post.objects.all().order_by("-upvotes")
-=======
-    elif url == 'num_votes':
-        posts = Post.objects.all().order_by("-num_votes")
-        posts = Post.objects.filter(post_status=1)
->>>>>>> faeb44b15c2fa16f2d9460b642ee14c55b7551a9
-        context_dict = {
 
+        context_dict = {
             'posts': posts,
         }
 
@@ -83,7 +77,7 @@ def all_questions_view(request, url):
     return render_to_response('questions/all_questions.html', context_dict, context)
 
 
-<<<<<<< HEAD
+
 def view_tags(request): #This view has been defined for displaying all the tags and the number of posts related to each tag.
 	context=RequestContext(request)
 	tags=Tag.objects.all()#for fetching all the tags.
@@ -92,8 +86,6 @@ def view_tags(request): #This view has been defined for displaying all the tags 
 	context_dict= {'tags': tags}
 	return render_to_response('forum/tags.html', context_dict, context)
 
-=======
->>>>>>> faeb44b15c2fa16f2d9460b642ee14c55b7551a9
 
 def ask_question(request):
     context = RequestContext(request)
@@ -374,49 +366,34 @@ def search(request):
         """Searching for ticket-id"""
         tickets = Ticket.objects.filter(Q(ticket_id__icontains=Search) | Q(user_id__icontains=Search))
 
-<<<<<<< HEAD
+
 def link_question(request, qid):
     context = RequestContext(request)
     question = Post.objects.get(pk=qid)
     posts = Post.objects.get(pk=qid)
     replies = Reply.objects.filter(title=posts)
-   
+
     context_dict = {
         'posts': posts,
         'replies': replies,
     }
-
     return render_to_response('questions/allqueries_link.html', context_dict, context)
 
-=======
-        if tickets.exists():
-            context_dict = {
-                'user': active_user,
-                'tickets': tickets,
-                'count_open': count_open,
-                'count_close': count_close,
-            }
-            return render_to_response("ticketing/search.html", context_dict, RequestContext(request))
-        else:
-            """Searching for Topic-id"""
-            tickets = Category.objects.filter(category__icontains=Search)
-
-            if tickets.exists():
-                tickets = Ticket.objects.filter(topic_id=tickets)
-                context_dict = {
-                    'user': active_user,
-                    'tickets': tickets,
-                    'count_open': count_open,
-                    'count_close': count_close,
-                }
-                return render_to_response("ticketing/search.html", context_dict, RequestContext(request))
-            else:
-                tickets = Ticket.objects.all()
-                context_dict = {
-                    'user': active_user,
-                    'tickets': tickets,
-                    'count_open': count_open,
-                    'count_close': count_close,
-                }
-                return render_to_response("ticketing/d.html", context_dict, RequestContext(request))
->>>>>>> faeb44b15c2fa16f2d9460b642ee14c55b7551a9
+    if tickets.exists():
+        context_dict = {
+            'user': active_user,
+            'tickets': tickets,
+            'count_open': count_open,
+            'count_close': count_close,
+        }
+        return render_to_response("ticketing/search.html", context_dict, RequestContext(request))
+    else:
+        """Searching for Topic-id"""
+        tickets = Ticket.objects.all()
+        context_dict = {
+            'user': active_user,
+            'tickets': tickets,
+            'count_open': count_open,
+            'count_close': count_close,
+        }
+        return render_to_response("ticketing/d.html", context_dict, RequestContext(request))
