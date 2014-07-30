@@ -1,7 +1,8 @@
 # Django settings for AakashTechSupport project.
 
 import os
-import top_secret
+from top_secret import *
+
 from django.conf.global_settings import TEMPLATE_DIRS
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SETTINGS_DIR = os.path.dirname(__file__)
@@ -13,7 +14,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Aakash TechSupport admin', 'ats_admin@example.com'),
 )
 
 MANAGERS = ADMINS
@@ -22,8 +23,16 @@ LOGIN_URL = '/login/'
 
 DATABASES = {
     'default': {
-        'ENGINE': top_secret.DB_ENGINE,
-        'NAME': os.path.join(BASE_DIR, top_secret.DB_NAME),
+        'ENGINE': DB_ENGINE, # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': DB_NAME,                      # Or path to database file if using sqlite3.
+        # The following settings are not used with sqlite3:
+
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+
+
+        'HOST': DB_HOST,                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': DB_PORT,                      # Set to empty string for default.
     }
 }
 
@@ -37,7 +46,7 @@ ALLOWED_HOSTS = []
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Asia/Kolkata'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -86,8 +95,6 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(BASE_DIR, "static"),
-    top_secret.STATIC_DIR,
-    
 )
 
 # List of finder classes that know how to find static files in

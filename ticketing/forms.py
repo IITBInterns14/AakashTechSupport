@@ -19,7 +19,7 @@ class SubmitTicketForm(forms.ModelForm):
 				    attrs={'class': 'form-control', 'placeholder': 'Tablet Id'}),
 			    )
     topic_id = forms.ChoiceField(
-			    choices=[(x['category'], str(x['category'])) for x in Category.objects.values('category')],
+			    choices=[(x['name'], str(x['name'])) for x in Category.objects.values('name')],
 			    help_text="Enter Help Topic:",
 			    #label="Select Help Topic",
 			    widget=forms.Select(

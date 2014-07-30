@@ -18,8 +18,9 @@ def all_questions_view(request, url):
     context_dict = {}
 
     if url == 'latest':
-        posts = Post.objects.all().order_by("-post_date")
-        posts = Post.objects.filter(post_status=1)
+        print "in latest"
+        posts = Post.objects.all().order_by("-post_date")[:5]
+        #posts = Post.objects.filter(post_status=1)
 
         context_dict = {
             'posts': posts,
@@ -86,7 +87,8 @@ def ask_question(request):
         some_user = UserProfile.objects.get(user=u)
 
         category_selected = category_selected.upper()
-        category = Category.objects.get(category=category_selected)
+        category = Category.objects.get(name=category_selected)
+        print category
 
         post = Post.objects.create(title=title, body=body, post_date=post_date, creator=some_user,
                                    category=category)
@@ -115,6 +117,7 @@ def ask_question(request):
         if request.user.is_authenticated():
             user = request.user
             categories = Category.objects.all()
+            print categories
             c = {
                 'user': user,
                 'catg': categories
@@ -216,7 +219,9 @@ def vote_post(request):
 def link_question(request, qid):
     context = RequestContext(request)
     posts = Post.objects.get(pk=qid)
+    print posts
     replies = Reply.objects.filter(title=posts)
+    reply_count = len(replies)
 
     thisuserupvote = posts.userUpVotes.filter(id=request.user.id).count()
     thisuserdownvote = posts.userDownVotes.filter(id=request.user.id).count()
@@ -227,6 +232,7 @@ def link_question(request, qid):
         'user': request.user,
         'posts': posts,
         'post_replies': replies,
+        'reply_count': reply_count,
         'thisUserUpvote': thisuserupvote,
         'thisUserDownvote': thisuserdownvote,
         'net_count': net_count
@@ -237,13 +243,15 @@ def link_question(request, qid):
 
 def view_tags(request):
     context = RequestContext(request)
-    tags = Category.objects.all()
+    cats = Category.objects.all()
+    print "CATS"
 
-    for i in tags:
-        i.count = len(Post.objects.filter(category=i))
+    for cat in cats:
+        cat.count = len(Post.objects.filter(category=cat))
+        print cat.count
 
     context_dict = {
-        'tags': tags
+        'cats': cats,
     }
 
     return render_to_response('questions/tags.html', context_dict, context)
@@ -252,7 +260,6 @@ def view_tags(request):
 def search_tags(request):
     """
         @AJAX SEARCHING
-        @author = d27
     """
 
     search_dict = {}
@@ -294,7 +301,7 @@ def tag_search(request):
     active_user = request.user
     mytag = mytag.upper()
 
-    new_tags = Category.objects.filter(category__icontains=mytag)
+    new_tags = Category.objects.filter(name__icontains=mytag)
 
     if new_tags.exists():
         context_dict = {
