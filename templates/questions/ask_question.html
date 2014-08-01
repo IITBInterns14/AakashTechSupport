@@ -45,7 +45,7 @@
             <td>
                 <select class="form-control" name="category" style="width: 610px;">
                   {% for i in catg %}
-                  <option>{{ i.category|lower|capfirst }}</option>
+                  <option>{{ i.name|lower|capfirst }}</option>
                   {% endfor %}
                 </select>
             </td>

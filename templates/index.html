@@ -136,11 +136,11 @@
 	<nav class="navbar navbar-default navbar-static-top  col-md-8 col-md-offset-2" role="navigation">
 
         <ul class="nav navbar-nav">
-          <a class="navbar-brand " href="/questions/" ><b>Questions</b>&nbsp;&nbsp; |</a>
+          <a class="navbar-brand " href="/questions/latest" ><b>Questions</b>&nbsp;&nbsp; |</a>
         </ul>
 
         <ul class="nav navbar-nav">
-           <a class="navbar-brand " href="/questions/tags/"><b>Tags</b>&nbsp;&nbsp;&nbsp; |</a>
+           <a class="navbar-brand " href="/questions/tags/"><b>Categories</b>&nbsp;&nbsp;&nbsp; |</a>
         </ul>
 
 	<ul class="nav navbar-nav">
@@ -155,15 +155,16 @@
 	</li>
 
         {% else %}
-	<a class="navbar-brand " href="/ticketing/submit_ticket/" ><b>Submit Ticket</b></a>
+	<a class="navbar-brand " href="/ticketing/submit_ticket/"><b>Submit</b> Ticket</a>
 	{% endif %}
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
               {% if not user.is_superuser %}
-                  <a class="navbar-brand " href="/ticketing/view_tickets/" >View <b>Tickets </b>&nbsp;&nbsp; |</a>
-                  <a class="navbar-brand " href="/questions/askquestion/" >Ask <b>Question </b></a>
+                  <a class="navbar-brand "
+                  href="/ticketing/view_tickets/"><b>View</b> Tickets &nbsp; |</a>
+                  <a class="navbar-brand" href="/questions/askquestion/"><b>Ask</b> Question </a>
               {% else %}
               <a class="navbar-brand " href="/ticketing/view_tickets/" >View <b>Tickets </b></a>
               {% endif %}

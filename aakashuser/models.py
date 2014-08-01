@@ -20,7 +20,7 @@ Invaliddate = Date - datetime.timedelta(days=1)
 class UserProfile(models.Model):#Model for storing a user's information.
     user = OneToOneField(User)
     location = models.CharField(max_length=10, blank=True)
-    avatar = models.ImageField(upload_to='static/images/profile_image', blank=True)#for storing user's pic
+    avatar = models.ImageField(upload_to='profile_image', blank=True)#for storing user's pic
     online_status = models.BooleanField(default=False)
     user_type = models.IntegerField(max_length=1, default=0)
     user_skills = models.CharField(max_length=100, blank=True)#to mantain user profile
@@ -40,11 +40,11 @@ class UserProfile(models.Model):#Model for storing a user's information.
 
 
 class Category(models.Model): # Model for storing categories of various posts.
-    category = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
     description = models.TextField()
 
     def __unicode__(self):
-        return self.category
+        return self.name
 
 
 class Post(models.Model):
@@ -84,7 +84,7 @@ class Reply(models.Model):
     body = models.TextField()
     user = models.ForeignKey(UserProfile) # changed from User to UserProfile & name changed from user to creator
     reply_date = models.DateTimeField(auto_now_add=True)
-    file_upload = models.FileField(upload_to='forum/file', blank=True)
+    file_upload = models.FileField(upload_to='reply-file', blank=True)
     upvotes = models.IntegerField(default=0)
     reply_status = models.BooleanField(default=False, blank=True)
 
@@ -104,7 +104,7 @@ class Reply(models.Model):
 
 
 class Comment(models.Model): # Model for storing information about each Comment with Reply as its foreign key.
-    ans_id = models.ForeignKey(Reply)
+    reply_id = models.ForeignKey(Reply)
     comment_body = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User)

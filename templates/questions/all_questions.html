@@ -82,17 +82,25 @@
                             {{ post.category|lower|capfirst }}
                         </a>
                     </div>
+
+		    <div class="tags t-search">
+                            {% for tag in post.tags.all %}
+			    <a href="{{tag.name}}">{{ tag.name }},</a>
+			    {% endfor %}
+                    </div>
+
                     <div class="started-fr">
                         <div class="user-info">
                             <div class="user-action-time" style="float: left; ">
-                                asked by
-                                <span class="relativetime" title="2014-06-17 14:05:09Z">
-                                    {{ post.creator.user.username }}
-                                </span>
+                              &nbsp by
+                              <span class="relativetime" title="2014-06-17 14:05:09Z">
+                                {{ post.creator.user.username }}
+                              </span>
                             </div>
                             <div class="user-gravatar32">
                                 <a href="/users/1">
                                     <div class="gravatar-wrapper-32">
+
                                     </div>
                                 </a>
                             </div>

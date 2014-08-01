@@ -10,7 +10,7 @@
           <li style="float: right;"><a href="#">Popular</a></li>
           <li style="float: right;" class="active"><a href="#">New</a></li>
         <h4 style="text-align: left; font-size:18px; font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif; font-weight: bold;">
-            Tags
+          Categories
         </h4>
 
         </ul>
@@ -28,7 +28,7 @@
         <ul class="nav navbar-nav">
             <div class="input-group" style="float: left; padding-left: 0.2cm;">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                <input type="text" class="form-control" name="search_text" placeholder="Search for a Tag" required="required" data-max-length="150" data-min-length="15" tabindex="100" maxlength="300" style="width: 250px;"/>
+                <input type="text" class="form-control" name="search_text" placeholder="Search category" required="required" data-max-length="150" data-min-length="15" tabindex="100" maxlength="300" style="width: 250px;"/>
             </div>
         </ul>
 
@@ -43,23 +43,21 @@
     <table id="tags-browser">
         <tbody>
             <tr>
-            {% for tag in tags %}
-
+            {% for cat in cats %}
                 <td class="tag-cell">
-                    <a class="post-tag" rel="tag" title="" href="/questions/tagged_questions/{{ tag.pk }}/">
-                       {{ tag.category|lower|capfirst }}
+                    <a class="post-tag" rel="tag" title="" href="/questions/tagged_questions/{{ cat.pk }}/">
+                       {{ cat.name|lower|capfirst }}
                     </a>
                     <span class="item-multiplier">
                         <span class="item-multiplier-x">
                             x
                         </span>
                         <span class="item-multiplier-count">
-                           {{ tag.count|default:"0" }}
+			   {{ cat.count|default:"0" }}
                         </span>
                     </span>
                     <div class="excerpt">
-                        Java (not to be confused with JavaScript) is a cla…
-                        {{ tag.description }}
+                      {{ cat.description }}
                     </div>
                 </td>
                 {% if forloop.counter|divisibleby:"4" %}
